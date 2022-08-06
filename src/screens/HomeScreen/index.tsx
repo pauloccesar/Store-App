@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { FlatList, TouchableOpacity, Text } from 'react-native';
-import { AreaInput, Card, Container, Header, Icon, SearchIcon, TextInput, Image } from './styles';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { AreaInput, Card, Container, Header, HeaderModal, Icon, SearchIcon, TextInput, Title } from './styles';
+import { CardComponent } from '../../components/CardComponent';
 
 export default function HomeScreen({ navigation }: any) {
   const [input, setInput] = useState('');
@@ -12,7 +13,7 @@ export default function HomeScreen({ navigation }: any) {
       setProducts(response.data);
     });
   }, [])
-  console.log(products)
+
   return (
     <Container>
       <Header>
@@ -32,14 +33,14 @@ export default function HomeScreen({ navigation }: any) {
       </AreaInput>
       <FlatList
         data={products}
-        // keyExtractor={({ _id }, i) => _id ?? i.toString()}
+        keyExtractor={item => item.id}
         numColumns={2}
-        renderItem={({ item: products }) => (
-          <Card>
-            <Image
-              source={{ uri: products?.image }}
-            />
-          </Card>
+        renderItem={({ item }) => (
+          <CardComponent
+            onPress={() => navigation.navigate('Cart')}
+            url={item?.image}
+            title={item?.title}
+          />
         )}
       />
     </Container>

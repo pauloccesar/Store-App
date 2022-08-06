@@ -62,3 +62,15 @@ export const Image = styled.Image`
   border-radius: 20px;
   padding-top: 26px;
 `;
+
+export const HeaderModal = styled.View`
+  width: 100%;
+  height: 50px;
+  background-color: #00d900;
+  align-items:  flex-end;
+  justify-content: center;
+`;
+
+export const Title = styled.Text`
+  font-size: 14px;
+`;
