@@ -22,7 +22,7 @@ export const Icon = styled(Feather)`
 `;
 
 export const Title = styled.Text`
-  font-size: 14px;
+  font-size: 18px;
   padding-left: 15px;
 `;
 

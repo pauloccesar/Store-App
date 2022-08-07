@@ -22,9 +22,6 @@ export default function HomeScreen({ navigation }: any) {
       image: item.image,
     }
     try {
-      // AsyncStorage.setItem('cartList', JSON.stringify([]));
-      // console.log("---- OK -----");
-
       let newProduct: any = [];
       await AsyncStorage.getItem('cartList').then((value: any) => {
         console.log("---- value -----", JSON.parse(value));
