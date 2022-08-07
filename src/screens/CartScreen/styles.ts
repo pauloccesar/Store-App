@@ -45,6 +45,7 @@ export const ImageList = styled.Image`
   width: 45px;
   height: 45px;
   border-radius: 10px;
+  margin-left: 10px;
 `;
 
 export const TitleList = styled.Text`

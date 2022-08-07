@@ -9,36 +9,24 @@ export default function CartScreen({ navigation }: any) {
   const [cartList, setCartList]: any = useState([]);
 
   useEffect(() => {
-    getCartList()
+    getCartList();
   }, []);
 
   async function getCartList() {
     AsyncStorage.getItem('cartList').then((value: any) => {
-      const accounts = JSON.parse(value);
-      setCartList(accounts)
+      const products = JSON.parse(value);
+      setCartList(products);
     });
   }
 
   async function handleRemoveProduct(id: number) {
     const updatedCartList = cartList.filter((cartList: { id: number; }) => cartList.id !== id);
     try {
-      let newProduct: any = [];
-      await AsyncStorage.getItem('cartList').then((value: any) => {
-        console.log(JSON.parse(value));
-        newProduct = JSON.parse(value)
-        newProduct.push(updatedCartList)
-      });
-      AsyncStorage.setItem('cartList', JSON.stringify(newProduct));
-      navigation.navigate('Cart');
+      await AsyncStorage.setItem('cartList', JSON.stringify(updatedCartList));
       setCartList(updatedCartList);
     } catch (error) {
     }
   }
-
-  // const Delete = () => AsyncStorage.setItem('cartList', JSON.stringify([]));
-
-
-  console.log("produto aqui", cartList)
 
   return (
     <Container>
@@ -57,7 +45,7 @@ export default function CartScreen({ navigation }: any) {
         data={cartList}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <ContainerList>
+          <ContainerList key={item.id}>
             <ImageList source={{ uri: item?.image }} />
             <TitleList>{item?.name}</TitleList>
             <TouchableOpacity
