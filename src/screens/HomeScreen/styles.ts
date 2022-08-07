@@ -23,7 +23,7 @@ export const Icon = styled(Feather)`
 
 export const AreaInput = styled.View`
   width: 90%;
-  height: 48px;
+  height: 50px;
   flex-direction: row;
   margin: 10px;
   background-color: #FFF;
@@ -35,6 +35,7 @@ export const AreaInput = styled.View`
 
 export const TextInput = styled.TextInput`
   max-width: 90%;
+  height: 50px;
   font-size: 16px;
 `;
 

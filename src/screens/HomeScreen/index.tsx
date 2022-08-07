@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { AreaInput, Container, Header, Icon, SearchIcon, TextInput } from './styles';
@@ -8,6 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function HomeScreen({ navigation }: any) {
   const [input, setInput] = useState('');
   const [products, setProducts]: any = useState({});
+  const filterProduct = useMemo(() =>
+    input !== '' ? products?.
+      filter(({ title = '' }) =>
+      title
+          .toLowerCase()
+          .includes(input.toLowerCase()))
+      : products
+    , [input, products]);
 
   useEffect(() => {
     axios.get('https://fakestoreapi.com/products').then((response) => {
@@ -25,8 +33,8 @@ export default function HomeScreen({ navigation }: any) {
       let newProduct: any = [];
       await AsyncStorage.getItem('cartList').then((value: any) => {
         console.log("---- value -----", JSON.parse(value));
-         newProduct = JSON.parse(value)
-         newProduct.push(data)
+        newProduct = JSON.parse(value)
+        newProduct.push(data)
       });
       AsyncStorage.setItem('cartList', JSON.stringify(newProduct));
       navigation.navigate('Cart');
@@ -54,7 +62,7 @@ export default function HomeScreen({ navigation }: any) {
         <SearchIcon name="search" />
       </AreaInput>
       <FlatList
-        data={products}
+        data={filterProduct}
         keyExtractor={item => item.id}
         numColumns={2}
         renderItem={({ item }) => (
