@@ -32,7 +32,6 @@ export default function HomeScreen({ navigation }: any) {
     try {
       let newProduct: any = [];
       await AsyncStorage.getItem('cartList').then((value: any) => {
-        console.log("---- value -----", JSON.parse(value));
         newProduct = JSON.parse(value)
         newProduct.push(data)
       });
@@ -40,7 +39,6 @@ export default function HomeScreen({ navigation }: any) {
       navigation.navigate('Cart');
     }
     catch (error) {
-      console.log("---- ERROR -----")
     }
   }
 
