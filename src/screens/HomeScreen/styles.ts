@@ -44,8 +44,6 @@ export const SearchIcon = styled(Feather)`
 `;
 
 export const Card = styled.View`
-  /* width: 163px;
-  height: 144px; */
   width: 150px;
   height: 150px;
   background-color: #FFFFFF;

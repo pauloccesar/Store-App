@@ -1,18 +1,43 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native';
-import { AreaInput, Card, Container, Header, HeaderModal, Icon, SearchIcon, TextInput, Title } from './styles';
+import { AreaInput, Container, Header, Icon, SearchIcon, TextInput } from './styles';
 import { CardComponent } from '../../components/CardComponent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ navigation }: any) {
   const [input, setInput] = useState('');
-  const [products, setProducts] = useState();
+  const [products, setProducts]: any = useState({});
 
   useEffect(() => {
     axios.get('https://fakestoreapi.com/products').then((response) => {
       setProducts(response.data);
     });
   }, [])
+
+  async function handleAddCartList(item: any) {
+    const data = {
+      id: JSON.stringify(new Date().getTime()),
+      name: item.title,
+      image: item.image,
+    }
+    try {
+      // AsyncStorage.setItem('cartList', JSON.stringify([]));
+      // console.log("---- OK -----");
+
+      let newProduct: any = [];
+      await AsyncStorage.getItem('cartList').then((value: any) => {
+        console.log("---- value -----", JSON.parse(value));
+         newProduct = JSON.parse(value)
+         newProduct.push(data)
+      });
+      AsyncStorage.setItem('cartList', JSON.stringify(newProduct));
+      navigation.navigate('Cart');
+    }
+    catch (error) {
+      console.log("---- ERROR -----")
+    }
+  }
 
   return (
     <Container>
@@ -37,7 +62,7 @@ export default function HomeScreen({ navigation }: any) {
         numColumns={2}
         renderItem={({ item }) => (
           <CardComponent
-            onPress={() => navigation.navigate('Cart')}
+            onPress={() => handleAddCartList(item)}
             url={item?.image}
             title={item?.title}
           />
