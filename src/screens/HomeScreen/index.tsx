@@ -3,8 +3,8 @@ import { Alert, FlatList, TouchableOpacity } from 'react-native';
 import { AreaInput, Container, Header, Icon, SearchIcon, TextInput } from './styles';
 import { CardComponent } from '../../components/CardComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAllProducts } from '../services/api';
 import LoadingComponent from '../../components/LoadingComponent';
+import { getAllProducts } from '../../services/api';
 
 export default function HomeScreen({ navigation }: any) {
   const [loading, setLoading] = useState(true);
