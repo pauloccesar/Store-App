@@ -1,7 +1,9 @@
 # Store-App
 <div id="top"></div>
 
-<br />
+<p align="center">
+  <img src="github/mobile.gif" alt="Store App tela mobile" />
+</p>
 
 ## About The Project
 <br/>
