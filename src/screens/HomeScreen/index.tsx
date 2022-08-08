@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { Alert, FlatList, TouchableOpacity } from 'react-native';
 import { AreaInput, Container, Header, Icon, SearchIcon, TextInput } from './styles';
 import { CardComponent } from '../../components/CardComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,16 +11,20 @@ export default function HomeScreen({ navigation }: any) {
   const filterProduct = useMemo(() =>
     input !== '' ? products?.
       filter(({ title = '' }) =>
-      title
+        title
           .toLowerCase()
           .includes(input.toLowerCase()))
       : products
     , [input, products]);
 
-  useEffect(() => {
-    axios.get('https://fakestoreapi.com/products').then((response) => {
+  async function getAllProducts() {
+    await axios.get('https://fakestoreapi.com/products').then((response) => {
       setProducts(response.data);
     });
+  }
+
+  useEffect(() => {
+    getAllProducts();
   }, [])
 
   async function handleAddCartList(item: any) {
@@ -39,6 +43,7 @@ export default function HomeScreen({ navigation }: any) {
       navigation.navigate('Cart');
     }
     catch (error) {
+      Alert.alert('Erro ao salvar dados ');
     }
   }
 
