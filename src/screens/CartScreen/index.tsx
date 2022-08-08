@@ -34,7 +34,7 @@ export default function CartScreen({ navigation }: any) {
   }
 
   async function handleClearAll() {
-    AsyncStorage.setItem('cartList', JSON.stringify([]));
+    await AsyncStorage.setItem('cartList', JSON.stringify([]));
     getCartList();
     setLoading(true);
     setTimeout(() => {

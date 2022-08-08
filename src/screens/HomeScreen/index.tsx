@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation }: any) {
         newProduct = JSON.parse(value)
         newProduct.push(data)
       });
-      AsyncStorage.setItem('cartList', JSON.stringify(newProduct));
+      await AsyncStorage.setItem('cartList', JSON.stringify(newProduct));
       navigation.navigate('Cart');
     }
     catch (error) {
