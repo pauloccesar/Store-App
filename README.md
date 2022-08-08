@@ -2,7 +2,7 @@
 <div id="top"></div>
 
 <p align="center">
-  <img src="github/mobile.gif" alt="Store App tela mobile" />
+  <img  width="240" height="410" src="github/mobile.gif" alt="Store App tela mobile" />
 </p>
 
 ## About The Project
