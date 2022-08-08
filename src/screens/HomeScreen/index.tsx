@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
-import { Alert, FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { AreaInput, Container, Header, Icon, SearchIcon, TextInput } from './styles';
 import { CardComponent } from '../../components/CardComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,9 +18,8 @@ export default function HomeScreen({ navigation }: any) {
     , [input, products]);
 
   async function getAllProducts() {
-    await axios.get('https://fakestoreapi.com/products').then((response) => {
-      setProducts(response.data);
-    });
+    const response = await axios.get('https://fakestoreapi.com/products');
+    setProducts(response.data);
   }
 
   useEffect(() => {
@@ -43,7 +42,6 @@ export default function HomeScreen({ navigation }: any) {
       navigation.navigate('Cart');
     }
     catch (error) {
-      Alert.alert('Erro ao salvar dados ');
     }
   }
 
